@@ -1,0 +1,22 @@
+using FoodApplication.Data.Configuration;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace FoodApplication.Data;
+
+public class FoodDBContext : IdentityDbContext<ApiUser>
+{
+    public FoodDBContext(DbContextOptions options) : base(options)
+    {
+    }
+
+    private DbSet<ApiUser> Users { get; set; }
+    private DbSet<Item> Items { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfiguration(new RolesConfiguration());
+        builder.ApplyConfiguration(new UsersConfiguration());
+    }
+}
