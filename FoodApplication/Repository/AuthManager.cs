@@ -57,7 +57,7 @@ public class AuthManager : IAuthManager
             User = userDto
         };
         return authResponse;
-    }ls
+    }
 
     public Task<string> Logout()
     {
