@@ -9,6 +9,8 @@ public class AuthRegister
     [Required] public string LastName { get; set; }
 
     [Required] [EmailAddress] public string Email { get; set; }
+    [Required] public string Address { get; set; }
+    [Required] public string PhoneNumber { get; set; }
 
     [Required]
     [MaxLength(16, ErrorMessage = "Password must not exceed 16 characters")]

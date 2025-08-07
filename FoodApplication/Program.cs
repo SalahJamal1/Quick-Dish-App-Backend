@@ -97,6 +97,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IICartRepository, CartRepository>();
+builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
@@ -114,6 +116,22 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSerilogRequestLogging();
+
+app.Use(async (context, next) =>
+{
+    await next();
+    if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
+        Console.WriteLine(context.Response.HasStarted);
+    context.Response.ContentType = "application/json";
+    var errorDetails = new ErrorDetails
+    {
+        ErrorType = "Not Found",
+        ErrorMessage = $"We could not find resource {context.Request.Path}"
+    };
+    var errors = JsonConvert.SerializeObject(errorDetails);
+    await context.Response.WriteAsync(errors);
+});
+
 app.MapControllers();
 
 app.Run();

@@ -23,8 +23,10 @@ public class ItemsController : ControllerBase
 
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+    public async Task<ActionResult<IEnumerable<Item>>> GetItems([FromQuery] string? catagory)
     {
+        if (!string.IsNullOrEmpty(catagory))
+            return Ok(await _repository.GetItemByCatagory(catagory));
         return Ok(await _repository.GetAllAsync());
     }
 

@@ -12,6 +12,8 @@ public class FoodDBContext : IdentityDbContext<ApiUser>
 
     private DbSet<ApiUser> Users { get; set; }
     private DbSet<Item> Items { get; set; }
+    public DbSet<Cart> Carts { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

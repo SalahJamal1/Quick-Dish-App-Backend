@@ -65,7 +65,6 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<UserDto>> GetMe()
     {
         var res = await _authManager.GetUser();
-
         return Ok(res);
     }
 }

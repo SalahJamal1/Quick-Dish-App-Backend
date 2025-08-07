@@ -4,8 +4,10 @@ using System.Text;
 using AutoMapper;
 using FoodApplication.Contracts;
 using FoodApplication.Data;
+using FoodApplication.Models.Orders;
 using FoodApplication.Models.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace FoodApplication.Repository;
@@ -13,17 +15,19 @@ namespace FoodApplication.Repository;
 public class AuthManager : IAuthManager
 {
     private readonly IConfiguration _configuration;
+    private readonly FoodDBContext _dbContext;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IMapper _mapper;
     private readonly UserManager<ApiUser> _userManager;
 
     public AuthManager(UserManager<ApiUser> userManager, IConfiguration configuration,
-        IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        IHttpContextAccessor httpContextAccessor, IMapper mapper, FoodDBContext dbContext)
     {
         _userManager = userManager;
         _configuration = configuration;
         _httpContextAccessor = httpContextAccessor;
         _mapper = mapper;
+        _dbContext = dbContext;
     }
 
     private HttpContext _context => _httpContextAccessor.HttpContext;
@@ -68,9 +72,11 @@ public class AuthManager : IAuthManager
     public async Task<UserDto> GetUser()
     {
         var userId = _context?.User?.Claims?.FirstOrDefault(c => c.Type == "uid")?.Value;
-        var user = await _userManager.FindByIdAsync(userId);
+        var user = await _dbContext.Users.Include(u => u.Orders)
+            .ThenInclude(c => c.Carts).ThenInclude(c => c.Item).FirstOrDefaultAsync(u => u.Id == userId);
 
         var userDto = _mapper.Map<UserDto>(user);
+        userDto.Order = _mapper.Map<ICollection<OrderDto>>(user.Orders);
         var roles = await _userManager.GetRolesAsync(user);
         userDto.Role = roles.FirstOrDefault();
         return userDto;

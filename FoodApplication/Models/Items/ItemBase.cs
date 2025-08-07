@@ -6,4 +6,5 @@ public class ItemBase
     public string ImageUrl { get; set; }
     public string Description { get; set; }
     public float UnitPrice { get; set; }
+    public string Catagory { get; set; }
 }
