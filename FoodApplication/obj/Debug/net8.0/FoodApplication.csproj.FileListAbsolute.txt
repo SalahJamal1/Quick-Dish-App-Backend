@@ -315,3 +315,4 @@
 /Users/salah/Desktop/FoodApplication/FoodApplication/obj/Debug/net8.0/FoodApplication.pdb
 /Users/salah/Desktop/FoodApplication/FoodApplication/obj/Debug/net8.0/FoodApplication.genruntimeconfig.cache
 /Users/salah/Desktop/FoodApplication/FoodApplication/obj/Debug/net8.0/ref/FoodApplication.dll
+/Users/salah/Desktop/FoodApplication/FoodApplication/obj/Debug/net8.0/FoodApplication.sourcelink.json
