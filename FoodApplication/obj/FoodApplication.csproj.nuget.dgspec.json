@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/salah/Desktop/FoodApplication/FoodApplication/FoodApplication.csproj": {}
+    "C:\\Users\\Ibrahim\\RiderProjects\\Food-app\\FoodApplication\\FoodApplication.csproj": {}
   },
   "projects": {
-    "/Users/salah/Desktop/FoodApplication/FoodApplication/FoodApplication.csproj": {
+    "C:\\Users\\Ibrahim\\RiderProjects\\Food-app\\FoodApplication\\FoodApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/salah/Desktop/FoodApplication/FoodApplication/FoodApplication.csproj",
+        "projectUniqueName": "C:\\Users\\Ibrahim\\RiderProjects\\Food-app\\FoodApplication\\FoodApplication.csproj",
         "projectName": "FoodApplication",
-        "projectPath": "/Users/salah/Desktop/FoodApplication/FoodApplication/FoodApplication.csproj",
-        "packagesPath": "/Users/salah/.nuget/packages/",
-        "outputPath": "/Users/salah/Desktop/FoodApplication/FoodApplication/obj/",
+        "projectPath": "C:\\Users\\Ibrahim\\RiderProjects\\Food-app\\FoodApplication\\FoodApplication.csproj",
+        "packagesPath": "C:\\Users\\Ibrahim\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ibrahim\\RiderProjects\\Food-app\\FoodApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/salah/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Ibrahim\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -121,7 +121,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.412/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.412/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

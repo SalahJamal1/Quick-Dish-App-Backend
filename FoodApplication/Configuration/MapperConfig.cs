@@ -1,5 +1,6 @@
 using AutoMapper;
 using FoodApplication.Data;
+using FoodApplication.Models.Carts;
 using FoodApplication.Models.Items;
 using FoodApplication.Models.Users;
 
@@ -12,5 +13,6 @@ public class MapperConfig : Profile
         CreateMap<ApiUser, UserDto>().ReverseMap();
         CreateMap<ApiUser, AuthRegister>().ReverseMap();
         CreateMap<Item, ItemBase>().ReverseMap();
+        CreateMap<Cart, CartBase>().ReverseMap();
     }
 }

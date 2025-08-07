@@ -97,6 +97,30 @@ namespace FoodApplication.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("FoodApplication.Data.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("FoodApplication.Data.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -153,13 +177,13 @@ namespace FoodApplication.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4ec63346-5624-41dc-91e2-d81d93c43a5b",
+                            Id = "c36c01e0-5ba2-4b13-8dcb-a200f3415948",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f846c054-03b9-4bae-912d-f1fbaaebcafe",
+                            Id = "4a445922-1e5c-45f2-abdf-6864d66100b2",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -269,6 +293,17 @@ namespace FoodApplication.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FoodApplication.Data.Cart", b =>
+                {
+                    b.HasOne("FoodApplication.Data.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
