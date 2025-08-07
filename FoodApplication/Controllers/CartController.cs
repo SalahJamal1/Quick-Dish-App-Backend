@@ -23,15 +23,19 @@ public class CartController : ControllerBase
 
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()
+    public async Task<ActionResult<IEnumerable<CartDto>>> GetCarts()
     {
-        return Ok(await _repository.GetAllAsync());
+        var carts = await _repository.GetCartsDetails();
+        var cartDto = _mapper.Map<List<CartDto>>(carts);
+        return Ok(cartDto);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Cart>> GetCart(int id)
+    public async Task<ActionResult<CartDto>> GetCart(int id)
     {
-        return Ok(await _repository.GetAsync(id));
+        var cart = await _repository.GetCartDetails(id);
+        var cartDto = _mapper.Map<CartDto>(cart);
+        return Ok(cartDto);
     }
 
     [HttpPut("{id}")]

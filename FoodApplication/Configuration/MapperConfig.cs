@@ -13,6 +13,8 @@ public class MapperConfig : Profile
         CreateMap<ApiUser, UserDto>().ReverseMap();
         CreateMap<ApiUser, AuthRegister>().ReverseMap();
         CreateMap<Item, ItemBase>().ReverseMap();
+        CreateMap<Item, ItemDto>().ReverseMap();
         CreateMap<Cart, CartBase>().ReverseMap();
+        CreateMap<Cart, CartDto>().ReverseMap();
     }
 }
