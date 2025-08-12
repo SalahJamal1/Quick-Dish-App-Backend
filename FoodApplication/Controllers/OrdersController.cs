@@ -62,10 +62,7 @@ public class OrdersController : ControllerBase
     public async Task<ActionResult<Order>> CreateOrders([FromBody] OrderBase ordersBase)
     {
         var orders = _mapper.Map<Order>(ordersBase);
-        var orderPrice = orders.OrderPrice;
-        var totalPrice = orders.Carts.Sum(c => c.TotalPrice);
-        if (totalPrice != orderPrice)
-            throw new AppErrorResponse($"The Total Price {totalPrice} is not the same as the Order Price {orderPrice}");
+        
         var user = await _authManager.GetUser();
         orders.ApiUserId = user.Id;
         try

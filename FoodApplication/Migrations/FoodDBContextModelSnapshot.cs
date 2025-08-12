@@ -226,13 +226,13 @@ namespace FoodApplication.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "001b9c43-6304-4d4e-a301-6cc81727ea7f",
+                            Id = "a4d45927-2d80-4cf1-bb5a-602aa504766d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "38c72d04-a772-4f07-aa56-6e6b30017444",
+                            Id = "1472ebb5-f36a-4c2c-9960-d9c3a29336ea",
                             Name = "User",
                             NormalizedName = "USER"
                         });

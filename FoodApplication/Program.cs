@@ -24,11 +24,17 @@ builder.Services.AddDbContext<FoodDBContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
-builder.Services.AddIdentityCore<ApiUser>()
+builder.Services.AddIdentityCore<ApiUser>(options =>
+    {
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+    })
     .AddRoles<IdentityRole>().AddEntityFrameworkStores<FoodDBContext>();
 builder.Services.AddCors(options => options
     .AddPolicy("AllowAll", b => b
-        .AllowAnyOrigin().AllowAnyMethod().AllowAnyOrigin()));
+        .AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 builder.Services.AddControllers();
 builder.Services.AddAuthentication(options =>
 {
@@ -121,7 +127,8 @@ app.Use(async (context, next) =>
 {
     await next();
     if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
-        Console.WriteLine(context.Response.HasStarted);
+    {
+        
     context.Response.ContentType = "application/json";
     var errorDetails = new ErrorDetails
     {
@@ -130,8 +137,11 @@ app.Use(async (context, next) =>
     };
     var errors = JsonConvert.SerializeObject(errorDetails);
     await context.Response.WriteAsync(errors);
+    }
 });
 
 app.MapControllers();
+app.Urls.Clear();
+app.Urls.Add("http://0.0.0.0:5288");
 
 app.Run();

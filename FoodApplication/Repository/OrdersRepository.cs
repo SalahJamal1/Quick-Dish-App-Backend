@@ -38,7 +38,7 @@ public class OrdersRepository : GenericRepository<Order>, IOrdersRepository
         var order = await _context.Orders.Include(o => o.Carts).ThenInclude(c => c.Item)
             .SingleOrDefaultAsync(o => o.Id == id);
         if (order == null) throw new AppErrorResponse($"Order with id {id} not found");
-        if (order.ActualDelivery == null && DateTime.UtcNow >= order.EstimatedDelivery)
+        if (order.ActualDelivery == null && DateTime.Now >= order.EstimatedDelivery)
         {
             order.ActualDelivery = order.EstimatedDelivery.AddMinutes(3);
             order.Status = Status.Delivered;

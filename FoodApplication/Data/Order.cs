@@ -11,10 +11,10 @@ public class Order
     public float OrderPrice { get; set; }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public Status Status { get; set; }
+    public Status Status { get; set; } = Status.Pending;
 
-    public DateTime EstimatedDelivery { get; set; } = DateTime.UtcNow.AddMinutes(15);
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime EstimatedDelivery { get; set; } = DateTime.Now.AddMinutes(15);
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime? ActualDelivery { get; set; }
 
     [ForeignKey(nameof(ApiUserId))] public string? ApiUserId { get; set; }

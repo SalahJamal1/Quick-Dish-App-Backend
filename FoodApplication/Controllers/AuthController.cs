@@ -38,8 +38,12 @@ public class AuthController : ControllerBase
         var errors = await _authManager.Register(authRegister);
         if (errors.Any())
         {
-            var error = errors.FirstOrDefault();
-            ModelState.AddModelError(error.Code, error.Description);
+
+            foreach (var error in errors)
+            {
+            throw new AppErrorResponse(error.Description);
+            
+            }
         }
 
         return Ok("You have been registered successfully.");

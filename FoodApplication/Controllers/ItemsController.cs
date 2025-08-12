@@ -21,7 +21,6 @@ public class ItemsController : ControllerBase
         _mapper = mapper;
     }
 
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Item>>> GetItems([FromQuery] string? catagory)
     {

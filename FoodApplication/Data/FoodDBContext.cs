@@ -20,5 +20,6 @@ public class FoodDBContext : IdentityDbContext<ApiUser>
         base.OnModelCreating(builder);
         builder.ApplyConfiguration(new RolesConfiguration());
         builder.ApplyConfiguration(new UsersConfiguration());
+        // builder.Entity<Order>().Property(o=>o.Status).HasConversion<string>();
     }
 }

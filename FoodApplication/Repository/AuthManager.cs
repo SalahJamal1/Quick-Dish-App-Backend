@@ -21,7 +21,8 @@ public class AuthManager : IAuthManager
     private readonly UserManager<ApiUser> _userManager;
 
     public AuthManager(UserManager<ApiUser> userManager, IConfiguration configuration,
-        IHttpContextAccessor httpContextAccessor, IMapper mapper, FoodDBContext dbContext)
+        IHttpContextAccessor httpContextAccessor, IMapper mapper, FoodDBContext dbContext
+    )
     {
         _userManager = userManager;
         _configuration = configuration;
@@ -37,7 +38,7 @@ public class AuthManager : IAuthManager
         var user = _mapper.Map<ApiUser>(authRegister);
         user.UserName = authRegister.Email;
         var result = await _userManager.CreateAsync(user, authRegister.Password);
-
+        Console.WriteLine(result.Errors);
 
         if (result.Succeeded) await _userManager.AddToRoleAsync(user, "user");
         return result.Errors;
@@ -76,9 +77,24 @@ public class AuthManager : IAuthManager
             .ThenInclude(c => c.Carts).ThenInclude(c => c.Item).FirstOrDefaultAsync(u => u.Id == userId);
 
         var userDto = _mapper.Map<UserDto>(user);
+        if (user.Orders != null && user.Orders.Any())
+        {
+            foreach (var order in user.Orders)
+                if (order.EstimatedDelivery < DateTime.Now)
+                {
+                    order.ActualDelivery = DateTime.Now;
+                    order.Status = Status.Delivered;
+                    _dbContext.Update(order);
+                }
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+
         userDto.Order = _mapper.Map<ICollection<OrderDto>>(user.Orders);
         var roles = await _userManager.GetRolesAsync(user);
         userDto.Role = roles.FirstOrDefault();
+
         return userDto;
     }
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FoodApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class OrderUsers : Migration
+    public partial class fix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,7 +89,9 @@ namespace FoodApplication.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    UnitPrice = table.Column<float>(type: "float", nullable: false)
+                    UnitPrice = table.Column<float>(type: "float", nullable: false),
+                    Catagory = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -283,8 +285,8 @@ namespace FoodApplication.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "05b32cca-ce74-4626-a66f-3922ca94e390", null, "Admin", "ADMIN" },
-                    { "806cc349-b8c4-4219-8ec4-d175e0dae376", null, "User", "USER" }
+                    { "1472ebb5-f36a-4c2c-9960-d9c3a29336ea", null, "User", "USER" },
+                    { "a4d45927-2d80-4cf1-bb5a-602aa504766d", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

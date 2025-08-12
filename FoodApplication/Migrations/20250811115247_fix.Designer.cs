@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodApplication.Migrations
 {
     [DbContext(typeof(FoodDBContext))]
-    [Migration("20250807131541_OrderUsers")]
-    partial class OrderUsers
+    [Migration("20250811115247_fix")]
+    partial class fix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,6 +144,10 @@ namespace FoodApplication.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Catagory")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -225,13 +229,13 @@ namespace FoodApplication.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "05b32cca-ce74-4626-a66f-3922ca94e390",
+                            Id = "a4d45927-2d80-4cf1-bb5a-602aa504766d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "806cc349-b8c4-4219-8ec4-d175e0dae376",
+                            Id = "1472ebb5-f36a-4c2c-9960-d9c3a29336ea",
                             Name = "User",
                             NormalizedName = "USER"
                         });
